@@ -1,6 +1,6 @@
 # Beat The Shit Out Of Chez
 
-Game created in April Fools by [Samuel772](https://github.com/SAMUEL0772)
+Game created during April Fools by [Samuel772](https://github.com/SAMUEL0772)
 
 Original Game can be found [here](https://github.com/SAMUEL0772/Beat-The-Chez)
 

@@ -23,12 +23,12 @@ end event
 
 event ObjectDraw 
     healthBar.currentWidth = chez.health
-    healthBar.currentWidth *= 2
+    healthBar.currentWidth *= 4
     temp3 = screen.xcenter
-    temp3 -= 100
+    temp3 -= 200
     temp4 = screen.ycenter
-    temp4 -= 67  
-    DrawRect(temp3, temp4, healthBar.currentWidth, 15, 255, 13, 13, 255)
+    temp4 -= 100  
+	DrawRect(temp3, temp4, healthBar.currentWidth, 15, 181, 33, 35, 255)
 end event
 
 
