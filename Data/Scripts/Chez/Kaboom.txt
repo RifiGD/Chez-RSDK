@@ -1,6 +1,6 @@
 // ========================
 // RSDK Project: Beat The Shit Out Of Chez
-// Script Name: HealthBar
+// Script Name: Kaboom
 // Script Author: Script Author
 // ========================
 
