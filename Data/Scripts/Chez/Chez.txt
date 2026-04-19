@@ -11,6 +11,10 @@ public alias object.value0 : punch.sfx
 public alias object.value1 : punch.cooldown
 private alias object.value2 : object.keyPressed
 
+// Object States
+private alias 0 : CHEZ_WAIT
+private alias 1 : CHEZ_CLICK
+
 // ========================
 // Function Declarations
 // ========================
@@ -41,6 +45,29 @@ end function
 // ========================
 
 event ObjectUpdate
+	// Code by Kotas, everyone thank him!!!!!
+	switch object.state
+	case CHEZ_WAIT
+		CheckTouchRect(161, 99, 263, 201)
+		if checkResult > -1
+			if punch.cooldown <= 0
+				punch.isHitting = true
+				Rand(punch.sfx,4)
+				PlaySfx(punch.sfx, 0)
+				chez.health -= 1
+				punch.isHitting = false
+				punch.cooldown = 8
+			end if
+			object.state = CHEZ_CLICK
+		end if
+	break
+	case CHEZ_CLICK
+		CheckTouchRect(161, 99, 263, 201)
+		if checkResult <= -1
+			object.state = CHEZ_WAIT
+		end if
+	break
+	end switch
 	#platform: STANDARD
     	CheckEqual(keyPress.buttonA, true)
     	object.keyPressed = checkResult
@@ -52,7 +79,9 @@ event ObjectUpdate
     	if keyPress.start == true
         	engine.state = 2
     	end if
-	
+
+		// Checks if any of the above equals true, if so hit Chez
+		// "Rip Sonic De Glitchger's idea" - Skyward
     	if object.keyPressed == true
     		punch.isHitting = true
     	end if
@@ -66,18 +95,6 @@ event ObjectUpdate
             	punch.cooldown = 5
         	end if
     	end if
-    	
-    	if punch.cooldown <= 0
-    		CheckTouchRect(161, 99, 263, 201)
-        	if checkResult > -1
-            	punch.isHitting = true
-            	Rand(punch.sfx,4)
-            	PlaySfx(punch.sfx, 0)
-            	chez.health -= 1
-            	punch.isHitting = false
-            	punch.cooldown = 8
-        	end if
-    	end if
 	#endplatform
     	punch.cooldown--
 	
@@ -86,6 +103,7 @@ event ObjectUpdate
     	else
         	SetPaletteEntry(0, 2, 0x3BA25F)
     	end if
+
     	CallFunction(Chez_Explode)
 end event
 

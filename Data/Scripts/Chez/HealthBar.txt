@@ -18,6 +18,9 @@ event ObjectUpdate
     if chez.health <= 0
         ResetObjectEntity(object.entityPos, TypeName[Blank Object], 0, object.xpos, object.ypos)
     end if
+    if keyPress[0].buttonC == true
+        chez.health = 1
+    end if
 end event
 
 
@@ -36,9 +39,9 @@ event ObjectStartup
     foreach(TypeName[HealthBar], arrayPos0, ALL_ENTITIES)
         object[arrayPos0].drawOrder = 3
         healthBar[arrayPos0].currentWidth = chez.health
+        // I know this looks a bit confusing, but all it does is times the now set chez.health by 2 in order to determine the width of the health bar
         healthBar[arrayPos0].currentWidth *= 2
     next
-    
 end event
 
 
