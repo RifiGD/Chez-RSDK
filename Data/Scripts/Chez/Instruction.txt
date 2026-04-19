@@ -22,7 +22,7 @@ event ObjectDraw
     temp1 = screen.xcenter
     temp1 -= 105
     temp2 = screen.ycenter
-    temp2 -= 37
+    temp2 -= 60
     DrawMenu(MENU_1, temp1, temp2)
 end event
 

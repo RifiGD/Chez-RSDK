@@ -8,13 +8,8 @@
 // Events
 // ========================
 
-event ObjectUpdate
-    
-end event
-
-
 event ObjectDraw
-    DrawRect(0, 0, screen.xsize, screen.ysize, 76, 76, 76, 0xFF)
+    DrawRect(0, 0, screen.xsize, screen.ysize, 83, 83, 83, 0xFF)
 end event
 
 

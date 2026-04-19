@@ -9,6 +9,12 @@
 // ========================
 public alias object.value0 : punch.sfx
 public alias object.value1 : punch.cooldown
+private alias object.value2 : object.keyPressed
+
+// Object States
+private alias 0 : CHEZ_WAIT
+private alias 1 : CHEZ_CLICK
+
 // ========================
 // Function Declarations
 // ========================
@@ -39,63 +45,73 @@ end function
 // ========================
 
 event ObjectUpdate
+	// Code by Kotas, everyone thank him!!!!!
+	switch object.state
+	case CHEZ_WAIT
+		CheckTouchRect(161, 99, 263, 201)
+		if checkResult > -1
+			if punch.cooldown <= 0
+				punch.isHitting = true
+				Rand(punch.sfx,4)
+				PlaySfx(punch.sfx, 0)
+				chez.health -= 1
+				punch.isHitting = false
+				punch.cooldown = 8
+			end if
+			object.state = CHEZ_CLICK
+		end if
+	break
+	case CHEZ_CLICK
+		CheckTouchRect(161, 99, 263, 201)
+		if checkResult <= -1
+			object.state = CHEZ_WAIT
+		end if
+	break
+	end switch
+	#platform: STANDARD
+    	CheckEqual(keyPress.buttonA, true)
+    	object.keyPressed = checkResult
+    	CheckEqual(keyPress.buttonB, true)
+    	object.keyPressed |= checkResult
+    	CheckEqual(keyPress.buttonC, true)
+    	object.keyPressed |= checkResult
+   	
+    	if keyPress.start == true
+        	engine.state = 2
+    	end if
 
-#platform: STANDARD
+		// Checks if any of the above equals true, if so hit Chez
+		// "Rip Sonic De Glitchger's idea" - Skyward
+    	if object.keyPressed == true
+    		punch.isHitting = true
+    	end if
+	
+    	if punch.cooldown <= 0
+        	if punch.isHitting == true
+            	punch.isHitting = false
+            	Rand(punch.sfx,4)
+            	PlaySfx(punch.sfx, 0)
+            	chez.health -= 1
+            	punch.cooldown = 5
+        	end if
+    	end if
+	#endplatform
+    	punch.cooldown--
+	
+    	if punch.cooldown > 0
+        	SetPaletteEntry(0, 2, 0xffffff)
+    	else
+        	SetPaletteEntry(0, 2, 0x3BA25F)
+    	end if
 
-    CheckEqual(keyPress.buttonA, true)
-    object.value2 = checkResult
-    CheckEqual(keyPress.buttonB, true)
-    object.value2 |= checkResult
-    CheckEqual(keyPress.buttonC, true)
-    object.value2 |= checkResult
-
-    if keyPress.start == true
-        engine.state = 2
-    end if
-
-    if object.value2 == true
-    punch.isHitting = true
-    end if
-
-    if punch.cooldown <= 0
-        if punch.isHitting == true
-            punch.isHitting = false
-            Rand(punch.sfx,4)
-            PlaySfx(punch.sfx, 0)
-            chez.health -= 1
-            punch.cooldown = 5
-        end if
-    end if
-#endplatform
-
-#platform: MOBILE
-    if punch.cooldown <= 0
-        CheckTouchRect(0, 0, screen.xsize, screen.ysize)
-        if checkResult > -1
-            punch.isHitting = true
-            Rand(punch.sfx,4)
-            PlaySfx(punch.sfx, 0)
-            chez.health -= 2
-            punch.isHitting = false
-            punch.cooldown = 10
-        end if
-    end if
-#endplatform
-    punch.cooldown--
-
-    if punch.cooldown > 0
-        SetPaletteEntry(0, 2, 0x63CA87)
-    else
-        SetPaletteEntry(0, 2, 0x3BA25F)
-    endif
-    CallFunction(Chez_Explode)
+    	CallFunction(Chez_Explode)
 end event
 
 
 event ObjectDraw
     SetActivePalette(0, 0, 0)
     temp0 = screen.ycenter
-    temp0 += 40
+    temp0 += 30
     DrawSpriteScreenFX(0, FX_SCALE, screen.xcenter, temp0)
 end event
 
