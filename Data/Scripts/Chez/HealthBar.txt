@@ -18,9 +18,6 @@ event ObjectUpdate
     if chez.health <= 0
         ResetObjectEntity(object.entityPos, TypeName[Blank Object], 0, object.xpos, object.ypos)
     end if
-    if keyPress[0].buttonC == true
-        chez.health = 1
-    end if
 end event
 
 
