@@ -18,8 +18,8 @@ No
 
 # Installing
 
-1. Download the repository using using the "Code" then "Download Code" button
-2. Download the RSDKv4 executable from [here](https://github.com/RSDKModding/RSDKv4-Decompilation/releases), and put the executable in the same folder as this downloadeds repository
+1. Download the repository using using the "Code" then "Download ZIP" button
+2. Download the latest RSDKv4 executable from [here](https://github.com/RSDKModding/RSDKv4-Decompilation/releases), and put the executable in the same folder as this downloadeds repository
 3. Open the game to create the `settings.ini` file, and then close the game and edit it as follows:
 ```
 [Game]
